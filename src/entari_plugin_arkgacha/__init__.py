@@ -1,19 +1,28 @@
 import json
 from dataclasses import asdict
 from pathlib import Path
+from typing import Optional
 
 from arclet.alconna import Alconna, Args, CommandMeta, Option
-import arknights_toolkit as arkkit
 from arclet.entari.command import Match
+import arknights_toolkit as arkkit
 from arknights_toolkit.update.main import fetch
 from arknights_toolkit.gacha import ArknightsGacha, GachaUser
 
-from arclet.entari import plugin_config, command, Plugin, metadata, Session, Image
+from arclet.entari import BasicConfModel, plugin_config, collect_disposes, command, Plugin, metadata, Session, Image
 from arclet.entari.logger import log
 from arclet.entari.utils.local_data import local_data
 
 
 __version__ = "0.1.0"
+
+
+class Config(BasicConfModel):
+    gacha_max: int = 300
+    pure_text: bool = False
+    pool_file: str = ""
+    proxy: Optional[str] = None
+
 
 metadata(
     "明日方舟抽卡模拟",
@@ -22,19 +31,21 @@ metadata(
     description="明模拟日方舟抽卡功能，支持模拟十连",
     urls={
         "homepage": "https://github.com/ArcletProject/entari-plugin-arkgacha",
-    }
+    },
+    config=Config,
 )
 
-_config = plugin_config()
+_config = plugin_config(Config)
 
-if "pool_file" in _config:
-    pool_file = Path(_config["pool_file"])
+if _config.pool_file:
+    pool_file = Path(_config.pool_file)
 else:
     pool_file = local_data.get_data_file("arkgacha", "pool.json")
 
+
 gacha = ArknightsGacha(
     pool_file,
-    proxy=_config.get("proxy")
+    proxy=_config.proxy
 )
 user_cache_file = local_data.get_cache_file("arkgacha", "user.json")
 if not user_cache_file.exists():
@@ -43,8 +54,6 @@ else:
     with user_cache_file.open("r", encoding="utf-8") as f:
         userdata = json.load(f)
 
-gacha_max = _config.get("gacha_max", 300)
-use_pure_text = _config.get("pure_text", False)
 
 gacha_cmd = Alconna(
     "方舟抽卡", Args["count", int, 10],
@@ -53,7 +62,7 @@ gacha_cmd = Alconna(
     Option("模拟", help_text="模拟十连"),
     meta=CommandMeta(
         description="文字版抽卡，可以转图片发送",
-        usage=f"方舟抽卡 [count = 10], count不会超过{gacha_max}",
+        usage=f"方舟抽卡 [count = 10], count不会超过{_config.gacha_max}",
         example="方舟抽卡 10",
         compact=True
     )
@@ -69,15 +78,15 @@ plug = Plugin.current()
 @plug.use("::startup")
 async def _():
     if arkkit.need_init():
-        await fetch(2, True, proxy=_config.get("proxy"))
+        await fetch(2, True, proxy=_config.proxy)
         base_path = Path(arkkit.__file__).parent / "resource"
         with (base_path / "ops_initialized").open("w+", encoding="utf-8") as _f:
             _f.write(arkkit.__version__)
         logger("INFO", "初始化明日方舟抽卡模块完成")
 
 
-@plug.use("::cleanup")
-async def _():
+@collect_disposes
+def _save_user_data():
     with user_cache_file.open("w+", encoding="utf-8") as _f:
         json.dump(userdata, _f, ensure_ascii=False, indent=2)
 
@@ -106,7 +115,7 @@ async def update_pool(session: Session):
             "\n五星角色：\n" +
             "\n".join(f"{i.name} {'【限定】' if i.limit else '【常驻】'}" for i in new.five_chars)
         )
-        if use_pure_text:
+        if _config.pure_text:
             await session.send(text)
         else:
             await session.send([Image(new.pool)(text)])
@@ -125,7 +134,7 @@ async def simulate(session: Session):
     else:
         user = GachaUser(**userdata[user_id])
     res = gacha.gacha(user, 10)
-    img = await simulate_image(res[0], proxy=_config.get("proxy"))
+    img = await simulate_image(res[0], proxy=_config.proxy)
     await session.send([Image.of(raw=img, mime="image/jpeg")("模拟十连")])
     userdata[user_id] = asdict(user)
     return
@@ -139,7 +148,7 @@ async def _(session: Session, count: Match[int]):
         userdata[user_id] = asdict(user)
     else:
         user = GachaUser(**userdata[user_id])
-    _count = min(max(int(count.result), 1), gacha_max)
+    _count = min(max(int(count.result), 1), _config.gacha_max)
     data = gacha.gacha(user, _count)
     get_six = {}
     get_five = {}
@@ -161,7 +170,7 @@ async def _(session: Session, count: Match[int]):
         "\n四星角色：\n" +
         f"共{four_count}个四星"
     )
-    if use_pure_text:
+    if _config.pure_text:
         await session.send(text)
     else:
         img = gacha.create_image(user, data, _count, True)
