@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:1b9b5569b310dcbbfeaf7afa44f90ac6c5fc1068f485d3a5793e4fb778996f81"
+content_hash = "sha256:3dc25beebae4e035e4d1c1662409c6ea44987d6275049607671cac1fe8687c4b"
 
 [[metadata.targets]]
 requires_python = ">=3.9"
@@ -180,42 +180,42 @@ files = [
 
 [[package]]
 name = "arclet-entari"
-version = "0.11.0"
+version = "0.12.0"
 requires_python = ">=3.9"
 summary = "Simple IM Framework based on satori-python"
 groups = ["default", "dev"]
 dependencies = [
     "arclet-alconna-tools>=0.7.3",
     "arclet-alconna<2.0,>=1.8.34",
-    "arclet-letoderea>=0.14.5",
+    "arclet-letoderea<0.16.0,>=0.15.0",
     "nonestorage>=0.1.0",
     "satori-python-client>=0.15.2",
     "satori-python-core>=0.15.2",
 ]
 files = [
-    {file = "arclet_entari-0.11.0-py3-none-any.whl", hash = "sha256:bdd97c0104702b66376a59cfbf97d7a878518790e2e692eddda839e3a65b2365"},
-    {file = "arclet_entari-0.11.0.tar.gz", hash = "sha256:bf288372a72a8f8bbe0fec1660251dfbfb7a88da8f76184cc53d80c7223cd001"},
+    {file = "arclet_entari-0.12.0-py3-none-any.whl", hash = "sha256:4c0e8f637476b3cca9597cffd77d2bd1f2e7437af74cd6db750bf60d036c1624"},
+    {file = "arclet_entari-0.12.0.tar.gz", hash = "sha256:50515aff1a10fe21dbb6d55fea265f0d653872a35bcdd539b47fdba61b7d9804"},
 ]
 
 [[package]]
 name = "arclet-entari"
-version = "0.11.0"
+version = "0.12.0"
 extras = ["yaml"]
 requires_python = ">=3.9"
 summary = "Simple IM Framework based on satori-python"
 groups = ["dev"]
 dependencies = [
-    "arclet-entari==0.11.0",
+    "arclet-entari==0.12.0",
     "pyyaml>=6.0.2",
 ]
 files = [
-    {file = "arclet_entari-0.11.0-py3-none-any.whl", hash = "sha256:bdd97c0104702b66376a59cfbf97d7a878518790e2e692eddda839e3a65b2365"},
-    {file = "arclet_entari-0.11.0.tar.gz", hash = "sha256:bf288372a72a8f8bbe0fec1660251dfbfb7a88da8f76184cc53d80c7223cd001"},
+    {file = "arclet_entari-0.12.0-py3-none-any.whl", hash = "sha256:4c0e8f637476b3cca9597cffd77d2bd1f2e7437af74cd6db750bf60d036c1624"},
+    {file = "arclet_entari-0.12.0.tar.gz", hash = "sha256:50515aff1a10fe21dbb6d55fea265f0d653872a35bcdd539b47fdba61b7d9804"},
 ]
 
 [[package]]
 name = "arclet-letoderea"
-version = "0.14.6"
+version = "0.15.1"
 requires_python = ">=3.9"
 summary = "A high-performance, simple-structured event system, relies on asyncio"
 groups = ["default", "dev"]
@@ -223,8 +223,8 @@ dependencies = [
     "tarina>=0.6.7",
 ]
 files = [
-    {file = "arclet_letoderea-0.14.6-py3-none-any.whl", hash = "sha256:3654daed9bb9f44e0ce2e1d88aa848ddb157b0edd30e18fb092bd7cd107a8b0f"},
-    {file = "arclet_letoderea-0.14.6.tar.gz", hash = "sha256:0871ef7f2a6b27485118821e1ee1aefc68eaaefd070f2e91094ff508d04d2591"},
+    {file = "arclet_letoderea-0.15.1-py3-none-any.whl", hash = "sha256:29bf647a0669147271e36bdc826dbe42a36034b6a2d150499bb0c28084837304"},
+    {file = "arclet_letoderea-0.15.1.tar.gz", hash = "sha256:508ff9a510bc8e3deb8c7990f252bc67861daf3b9ee9be267919beeac03c00fd"},
 ]
 
 [[package]]

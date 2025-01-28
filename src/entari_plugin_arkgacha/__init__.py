@@ -82,7 +82,7 @@ async def _():
         base_path = Path(arkkit.__file__).parent / "resource"
         with (base_path / "ops_initialized").open("w+", encoding="utf-8") as _f:
             _f.write(arkkit.__version__)
-        logger("INFO", "初始化明日方舟抽卡模块完成")
+        logger.info("初始化明日方舟抽卡模块完成")
 
 
 @collect_disposes
