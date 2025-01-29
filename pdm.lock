@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:3dc25beebae4e035e4d1c1662409c6ea44987d6275049607671cac1fe8687c4b"
+content_hash = "sha256:8e55d623c0fe1bc37f31b99aa60108854aa2c96bd1a4cdf51bb27c62a5d68b9a"
 
 [[metadata.targets]]
 requires_python = ">=3.9"
@@ -200,13 +200,14 @@ files = [
 [[package]]
 name = "arclet-entari"
 version = "0.12.0"
-extras = ["yaml"]
+extras = ["reload", "yaml"]
 requires_python = ">=3.9"
 summary = "Simple IM Framework based on satori-python"
 groups = ["dev"]
 dependencies = [
     "arclet-entari==0.12.0",
     "pyyaml>=6.0.2",
+    "watchfiles>=1.0.3",
 ]
 files = [
     {file = "arclet_entari-0.12.0-py3-none-any.whl", hash = "sha256:4c0e8f637476b3cca9597cffd77d2bd1f2e7437af74cd6db750bf60d036c1624"},
@@ -229,14 +230,14 @@ files = [
 
 [[package]]
 name = "arknights-toolkit"
-version = "0.7.7"
+version = "0.7.8"
 requires_python = ">=3.8"
 summary = "Arknights-related Toolkit"
 groups = ["default"]
 dependencies = [
     "Pillow>=10.2.0",
     "cli-lite>=0.10.0",
-    "httpx>=0.27.0",
+    "httpx<1.0.0,>=0.26.0",
     "loguru>=0.7.2",
     "lxml>=5.1.0",
     "matplotlib>=3.7.5",
@@ -244,8 +245,8 @@ dependencies = [
     "ujson>=5.9.0",
 ]
 files = [
-    {file = "arknights_toolkit-0.7.7-py3-none-any.whl", hash = "sha256:d15674231941fa40cbb11c4e34143ab4073cb9281edb9fbe18abb37750e0a4f3"},
-    {file = "arknights_toolkit-0.7.7.tar.gz", hash = "sha256:dddc6c33ce8180bcbbd22b98c7130ab1d9cb6f851bb1b98d4dac104f94e02e7d"},
+    {file = "arknights_toolkit-0.7.8-py3-none-any.whl", hash = "sha256:ab62bc9860df8aa853e78b1d87fdc54b30daead286874c3abb3d1e00a585869f"},
+    {file = "arknights_toolkit-0.7.8.tar.gz", hash = "sha256:96a6002a875f0380fae2310bfb070cb9d5629349334d2ffe9626484ae2cfe587"},
 ]
 
 [[package]]
@@ -276,7 +277,7 @@ name = "certifi"
 version = "2024.12.14"
 requires_python = ">=3.6"
 summary = "Python package for providing Mozilla's CA Bundle."
-groups = ["default", "dev"]
+groups = ["default"]
 files = [
     {file = "certifi-2024.12.14-py3-none-any.whl", hash = "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56"},
     {file = "certifi-2024.12.14.tar.gz", hash = "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"},
@@ -581,7 +582,7 @@ name = "h11"
 version = "0.14.0"
 requires_python = ">=3.7"
 summary = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
-groups = ["default", "dev"]
+groups = ["default"]
 dependencies = [
     "typing-extensions; python_version < \"3.8\"",
 ]
@@ -595,7 +596,7 @@ name = "httpcore"
 version = "1.0.7"
 requires_python = ">=3.8"
 summary = "A minimal low-level HTTP client."
-groups = ["default", "dev"]
+groups = ["default"]
 dependencies = [
     "certifi",
     "h11<0.15,>=0.13",
@@ -607,20 +608,19 @@ files = [
 
 [[package]]
 name = "httpx"
-version = "0.27.0"
+version = "0.28.1"
 requires_python = ">=3.8"
 summary = "The next generation HTTP client."
-groups = ["default", "dev"]
+groups = ["default"]
 dependencies = [
     "anyio",
     "certifi",
     "httpcore==1.*",
     "idna",
-    "sniffio",
 ]
 files = [
-    {file = "httpx-0.27.0-py3-none-any.whl", hash = "sha256:71d5465162c13681bff01ad59b2cc68dd838ea1f10e51574bac27103f00c91a5"},
-    {file = "httpx-0.27.0.tar.gz", hash = "sha256:a0cb88a46f32dc874e04ee956e4c2764aba2aa228f650b06788ba6bda2962ab5"},
+    {file = "httpx-0.28.1-py3-none-any.whl", hash = "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad"},
+    {file = "httpx-0.28.1.tar.gz", hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc"},
 ]
 
 [[package]]

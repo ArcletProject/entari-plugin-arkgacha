@@ -24,6 +24,5 @@ distribution = true
 [tool.pdm.dev-dependencies]
 dev = [
     "arclet-entari[yaml,reload]>=0.12.0",
-    "httpx<=0.27.0",
     "arclet-letoderea>=0.14.7",
 ]
