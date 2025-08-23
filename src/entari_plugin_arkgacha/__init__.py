@@ -14,7 +14,7 @@ from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
 
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 
 class Config(BasicConfModel):
