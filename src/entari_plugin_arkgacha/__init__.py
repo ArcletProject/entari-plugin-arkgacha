@@ -3,15 +3,15 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Optional
 
+import arknights_toolkit as arkkit
 from arclet.alconna import Alconna, Args, CommandMeta, Option
 from arclet.entari.command import Match
-import arknights_toolkit as arkkit
 from arknights_toolkit.update.main import fetch
 from arknights_toolkit.gacha import ArknightsGacha, GachaUser
 
 from arclet.entari import BasicConfModel, plugin_config, collect_disposes, command, Plugin, metadata, Session, Image
 from arclet.entari.logger import log
-from arclet.entari.utils.local_data import local_data
+from arclet.entari.localdata import local_data
 
 
 __version__ = "0.1.0"
@@ -19,14 +19,18 @@ __version__ = "0.1.0"
 
 class Config(BasicConfModel):
     gacha_max: int = 300
+    """单次抽卡最大次数，防止刷屏"""
     pure_text: bool = False
+    """是否只使用纯文本输出，关闭图片输出以节省资源"""
     pool_file: str = ""
+    """卡池文件路径，留空则使用默认路径"""
     proxy: Optional[str] = None
+    """HTTP代理"""
 
 
 metadata(
     "明日方舟抽卡模拟",
-    ["RF-Tar-Railt <rf_tar_railt@qq.com>"],
+    [{"name": "RF-Tar-Railt", "email": "rf_tar_railt@qq.com"}],
     __version__,
     description="明模拟日方舟抽卡功能，支持模拟十连",
     urls={
@@ -83,6 +87,8 @@ async def _():
         with (base_path / "ops_initialized").open("w+", encoding="utf-8") as _f:
             _f.write(arkkit.__version__)
         logger.info("初始化明日方舟抽卡模块完成")
+    else:
+        await fetch(2, False, proxy=_config.proxy)
 
 
 @collect_disposes
