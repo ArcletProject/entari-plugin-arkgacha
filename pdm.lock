@@ -5,10 +5,10 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:8b9b788ee8b107f93d635dcb881a0256a596a27427703498035a15d2240daac8"
+content_hash = "sha256:613b5fa196078fce82a85905c784bcf4155db94b0c6b49a35778b84ad474b768"
 
 [[metadata.targets]]
-requires_python = ">=3.9"
+requires_python = ">=3.10"
 
 [[package]]
 name = "aiohappyeyeballs"
@@ -180,52 +180,53 @@ files = [
 
 [[package]]
 name = "arclet-entari"
-version = "0.15.0"
-requires_python = ">=3.9"
+version = "0.16.0"
+requires_python = ">=3.10"
 summary = "Simple IM Framework based on satori-python"
 groups = ["default", "dev"]
 dependencies = [
     "arclet-alconna-tools>=0.7.3",
     "arclet-alconna<2.0.0,>=1.8.42",
-    "arclet-letoderea<0.19.0,>=0.18.1",
+    "arclet-letoderea<0.20.0,>=0.19.4",
     "nonestorage>=0.1.0",
-    "satori-python-client>=0.15.2",
-    "satori-python-core>=0.15.2",
+    "satori-python-client>=0.17.0",
+    "satori-python-core>=0.17.0",
 ]
 files = [
-    {file = "arclet_entari-0.15.0-py3-none-any.whl", hash = "sha256:ce1948c82762bbbbaad7aeaab9c8a19a1d8757e169fc85f0c3ea3620aa2e4ec4"},
-    {file = "arclet_entari-0.15.0.tar.gz", hash = "sha256:4063b365a4536e1264ea1c8e54b1944094321bf2c26d7b8f3ad14e854dd4bc7b"},
+    {file = "arclet_entari-0.16.0-py3-none-any.whl", hash = "sha256:d6e1f93aad4660b4b9ff9a19f7e050158a95605ce31ca47a87a34047340aa71f"},
+    {file = "arclet_entari-0.16.0.tar.gz", hash = "sha256:a3dcd2f6be6bcaf01e9ce0603fe428a7017d44e440cd7ebfcca3d5f299117853"},
 ]
 
 [[package]]
 name = "arclet-entari"
-version = "0.15.0"
+version = "0.16.0"
 extras = ["reload", "yaml"]
-requires_python = ">=3.9"
+requires_python = ">=3.10"
 summary = "Simple IM Framework based on satori-python"
 groups = ["dev"]
 dependencies = [
-    "arclet-entari==0.15.0",
+    "arclet-entari==0.16.0",
     "ruamel-yaml>=0.18.10",
     "watchfiles>=1.0.3",
 ]
 files = [
-    {file = "arclet_entari-0.15.0-py3-none-any.whl", hash = "sha256:ce1948c82762bbbbaad7aeaab9c8a19a1d8757e169fc85f0c3ea3620aa2e4ec4"},
-    {file = "arclet_entari-0.15.0.tar.gz", hash = "sha256:4063b365a4536e1264ea1c8e54b1944094321bf2c26d7b8f3ad14e854dd4bc7b"},
+    {file = "arclet_entari-0.16.0-py3-none-any.whl", hash = "sha256:d6e1f93aad4660b4b9ff9a19f7e050158a95605ce31ca47a87a34047340aa71f"},
+    {file = "arclet_entari-0.16.0.tar.gz", hash = "sha256:a3dcd2f6be6bcaf01e9ce0603fe428a7017d44e440cd7ebfcca3d5f299117853"},
 ]
 
 [[package]]
 name = "arclet-letoderea"
-version = "0.18.2"
-requires_python = ">=3.9"
+version = "0.19.4"
+requires_python = "<4.0,>=3.10"
 summary = "A high-performance, simple-structured event system, relies on asyncio"
 groups = ["default", "dev"]
 dependencies = [
     "tarina<0.8.0,>=0.7.0",
+    "typing-extensions>=4.12.0",
 ]
 files = [
-    {file = "arclet_letoderea-0.18.2-py3-none-any.whl", hash = "sha256:031c3a99a6e2d170d30c919e78f77058d5e55463c3236c98e1ba8af0a5f61008"},
-    {file = "arclet_letoderea-0.18.2.tar.gz", hash = "sha256:67c501d1be352a145e9c76ac219dee853feaf6ab7812286954cdbb55bff204ed"},
+    {file = "arclet_letoderea-0.19.4-py3-none-any.whl", hash = "sha256:1c10aa6e646523b2d43a59a8325426d3c12155d8200d2abcfb1241f27bc391a6"},
+    {file = "arclet_letoderea-0.19.4.tar.gz", hash = "sha256:7d1fe059fc2633466dee30341aa256de6d7d9500da3799c577c9feb67f086dab"},
 ]
 
 [[package]]
@@ -564,8 +565,8 @@ files = [
 
 [[package]]
 name = "graia-amnesia"
-version = "0.9.0"
-requires_python = "<4.0,>=3.8"
+version = "0.11.0"
+requires_python = "<4.0,>=3.10"
 summary = "a collection of shared components for graia"
 groups = ["default", "dev"]
 dependencies = [
@@ -573,8 +574,8 @@ dependencies = [
     "typing-extensions>=4.0.0",
 ]
 files = [
-    {file = "graia_amnesia-0.9.0-py3-none-any.whl", hash = "sha256:c78fd34e5955122575744a5b7d78fc636cee644e15eea543d68d07dfe12c6cf1"},
-    {file = "graia_amnesia-0.9.0.tar.gz", hash = "sha256:0a211c35eb55449b0ecfcdb1793148a1c525205d465e8202c242ab8924fc1ee0"},
+    {file = "graia_amnesia-0.11.0-py3-none-any.whl", hash = "sha256:d7710a160a461131c50a11e2931329373ef27b434687f22acedb0f1e766a3e7a"},
+    {file = "graia_amnesia-0.11.0.tar.gz", hash = "sha256:6b419160ad5de45bebdd0d8e93a110bb32665d46b5e26a9254e8546fa6dd1860"},
 ]
 
 [[package]]
@@ -647,21 +648,6 @@ dependencies = [
 files = [
     {file = "importlib_metadata-8.5.0-py3-none-any.whl", hash = "sha256:45e54197d28b7a7f1559e60b95e7c567032b602131fbd588f1497f47880aa68b"},
     {file = "importlib_metadata-8.5.0.tar.gz", hash = "sha256:71522656f0abace1d072b9e5481a48f07c138e00f079c38c8f883823f9c26bd7"},
-]
-
-[[package]]
-name = "importlib-resources"
-version = "6.4.5"
-requires_python = ">=3.8"
-summary = "Read resources from Python packages"
-groups = ["default"]
-marker = "python_version < \"3.10\""
-dependencies = [
-    "zipp>=3.1.0; python_version < \"3.10\"",
-]
-files = [
-    {file = "importlib_resources-6.4.5-py3-none-any.whl", hash = "sha256:ac29d5f956f01d5e4bb63102a5a19957f1b9175e45649977264a1416783bb717"},
-    {file = "importlib_resources-6.4.5.tar.gz", hash = "sha256:980862a1d16c9e147a59603677fa2aa5fd82b87f223b6cb870695bcfce830065"},
 ]
 
 [[package]]
@@ -1484,25 +1470,25 @@ files = [
 
 [[package]]
 name = "satori-python-client"
-version = "0.16.2"
-requires_python = ">=3.9"
+version = "0.17.1"
+requires_python = "<4.0,>=3.10"
 summary = "Satori Protocol SDK for python, specify client part"
 groups = ["default", "dev"]
 dependencies = [
     "aiohttp>=3.9.3",
-    "graia-amnesia>=0.9.0",
+    "graia-amnesia>=0.11.0",
     "launart>=0.8.2",
-    "satori-python-core>=0.16.1",
+    "satori-python-core>=0.17.0",
 ]
 files = [
-    {file = "satori_python_client-0.16.2-py3-none-any.whl", hash = "sha256:115a36931cbf69b48f2c5b0c4970367a6ec3e97eb4f6c38c93f8cced3d0614e0"},
-    {file = "satori_python_client-0.16.2.tar.gz", hash = "sha256:055fde41c856db670c1b1858c16e18b91550b581e7b9b7cb27aabe28ed00d18f"},
+    {file = "satori_python_client-0.17.1-py3-none-any.whl", hash = "sha256:8220cc36c38d6adfd415096f0b8d7196080f4031dd1992b3f824bf2512d537cf"},
+    {file = "satori_python_client-0.17.1.tar.gz", hash = "sha256:5165076c09197b3d628878a614a250ae8b2281d071a45e849037d3893aa57ca4"},
 ]
 
 [[package]]
 name = "satori-python-core"
-version = "0.16.2"
-requires_python = ">=3.9"
+version = "0.17.1"
+requires_python = "<4.0,>=3.10"
 summary = "Satori Protocol SDK for python, specify common part"
 groups = ["default", "dev"]
 dependencies = [
@@ -1511,8 +1497,8 @@ dependencies = [
     "yarl>=1.9.4",
 ]
 files = [
-    {file = "satori_python_core-0.16.2-py3-none-any.whl", hash = "sha256:22199879caaddb4dc9b17f8f61ce1f3b938ba5f49e3995aa9e291a87a50b2f75"},
-    {file = "satori_python_core-0.16.2.tar.gz", hash = "sha256:d9b5d7cadf1df264af1bb2c3317662772571a5f8cec86bfc886a04f2b1a7b552"},
+    {file = "satori_python_core-0.17.1-py3-none-any.whl", hash = "sha256:71dea1df5c48f888c40e527ce47e6a73d2bafeca93d190a0a7cb13a9cffe5f9c"},
+    {file = "satori_python_core-0.17.1.tar.gz", hash = "sha256:9f066f69388c0384adb064f610724bfc50b403e9b1e74fb0aed0815fbbf0c673"},
 ]
 
 [[package]]

@@ -1,2 +1,1 @@
-# entari-plugin-arkgacha
-Entari plugin for Arknights gacha
+./src/entari_plugin_arkgacha/README.md
