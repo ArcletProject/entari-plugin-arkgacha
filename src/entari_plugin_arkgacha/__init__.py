@@ -15,7 +15,7 @@ from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
 
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 
 class Shortcut(BasicConfModel):
@@ -47,6 +47,7 @@ metadata(
         "homepage": "https://github.com/ArcletProject/entari-plugin-arkgacha",
     },
     config=Config,
+    readme="README.md",
 )
 
 _config = plugin_config(Config)
