@@ -9,7 +9,8 @@ from arclet.entari.command import Match
 from arknights_toolkit.update.main import fetch
 from arknights_toolkit.gacha import ArknightsGacha, GachaUser
 
-from arclet.entari import BasicConfModel, plugin_config, collect_disposes, command, Plugin, metadata, Session, Image
+from arclet.entari import Plugin, Session, Image, plugin_config, collect_disposes, command, metadata
+from arclet.entari.config import BasicConfModel, model_field
 from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
 
@@ -17,7 +18,16 @@ from arclet.entari.localdata import local_data
 __version__ = "0.3.0"
 
 
+class Shortcut(BasicConfModel):
+    simulate: str = "方舟十连"
+    update: str = "方舟卡池更新"
+
+
 class Config(BasicConfModel):
+    command: str = "方舟抽卡"
+    """抽卡命令，默认为“方舟抽卡”，可以修改为其他命令，但请确保不与其他插件冲突"""
+    shortcut: Shortcut = model_field(default_factory=Shortcut)
+    """命令快捷方式，默认为“方舟十连”和“方舟卡池更新”，可以修改为其他命令，但请确保不与其他插件冲突"""
     gacha_max: int = 300
     """单次抽卡最大次数，防止刷屏"""
     pure_text: bool = False
@@ -60,20 +70,20 @@ else:
 
 
 gacha_cmd = Alconna(
-    "方舟抽卡", Args["count", int, 10],
+    _config.command, Args["count", int, 10],
     Option("更新", help_text="更新抽卡卡池数据"),
     Option("帮助", help_text="显示帮助信息"),
     Option("模拟", help_text="模拟十连"),
     meta=CommandMeta(
         description="文字版抽卡，可以转图片发送",
-        usage=f"方舟抽卡 [count = 10], count不会超过{_config.gacha_max}",
-        example="方舟抽卡 10",
+        usage=f"{_config.command} [count = 10], count不会超过{_config.gacha_max}",
+        example=f"{_config.command}",
         compact=True
     )
 )
 
-gacha_cmd.shortcut("方舟十连", arguments=["模拟"])
-gacha_cmd.shortcut("方舟卡池更新", arguments=["更新"])
+gacha_cmd.shortcut(_config.shortcut.simulate, arguments=["模拟"])
+gacha_cmd.shortcut(_config.shortcut.update, arguments=["更新"])
 
 logger = log.wrapper("[Arkgacha]")
 plug = Plugin.current()
@@ -103,11 +113,11 @@ disp = command.mount(gacha_cmd)
 @disp.assign("帮助")
 async def help_(session: Session):
     await session.send(
-        "可用命令：\n"
-        "方舟抽卡 [count = 10]\n"
-        "方舟十连\n"
-        "方舟抽卡帮助\n"
-        "方舟卡池更新\n"
+        f"可用命令：\n"
+        f"{_config.command} [count = 10]\n"
+        f"方舟十连\n"
+        f"{_config.command}帮助\n"
+        f"方舟卡池更新\n"
     )
 
 
