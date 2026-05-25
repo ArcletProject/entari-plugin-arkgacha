@@ -9,7 +9,7 @@ from arclet.entari.command import Match
 from arknights_toolkit.update.main import fetch
 from arknights_toolkit.gacha import ArknightsGacha, GachaUser
 
-from arclet.entari import Plugin, Session, Image, plugin_config, collect_disposes, command, metadata
+from arclet.entari import Plugin, Session, Image, plugin_config, command, metadata, keeping
 from arclet.entari.config import BasicConfModel, model_field
 from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
@@ -51,25 +51,6 @@ metadata(
 )
 
 _config = plugin_config(Config)
-
-if _config.pool_file:
-    pool_file = Path(_config.pool_file)
-else:
-    pool_file = local_data.get_data_file("arkgacha", "pool.json")
-
-
-gacha = ArknightsGacha(
-    pool_file,
-    proxy=_config.proxy
-)
-user_cache_file = local_data.get_cache_file("arkgacha", "user.json")
-if not user_cache_file.exists():
-    userdata = {}
-else:
-    with user_cache_file.open("r", encoding="utf-8") as f:
-        userdata = json.load(f)
-
-
 gacha_cmd = Alconna(
     _config.command, Args["count", int, 10],
     Option("更新", help_text="更新抽卡卡池数据"),
@@ -89,6 +70,32 @@ gacha_cmd.shortcut(_config.shortcut.update, arguments=["更新"])
 logger = log.wrapper("[Arkgacha]")
 plug = Plugin.current()
 
+if _config.pool_file:
+    pool_file = Path(_config.pool_file)
+else:
+    pool_file = local_data.get_data_file("arkgacha", "pool.json")
+
+
+gacha = keeping(
+    "arkgacha",
+    ArknightsGacha(
+        pool_file,
+        proxy=_config.proxy
+    )
+)
+user_cache_file = local_data.get_cache_file("arkgacha", "user.json")
+
+
+def _save_data(data: dict):
+    with user_cache_file.open("w+", encoding="utf-8") as _f:
+        json.dump(data, _f, ensure_ascii=False, indent=2)
+
+
+userdata = keeping("arkgacha_userdata", obj_factory=dict, dispose=_save_data)
+if user_cache_file.exists():
+    with user_cache_file.open("r", encoding="utf-8") as f:
+        userdata.update(json.load(f))
+
 
 @plug.use("::startup")
 async def _():
@@ -100,12 +107,6 @@ async def _():
         logger.info("初始化明日方舟抽卡模块完成")
     else:
         await fetch(2, False, proxy=_config.proxy)
-
-
-@collect_disposes
-def _save_user_data():
-    with user_cache_file.open("w+", encoding="utf-8") as _f:
-        json.dump(userdata, _f, ensure_ascii=False, indent=2)
 
 
 disp = command.mount(gacha_cmd)
