@@ -15,7 +15,7 @@ from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
 
 
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 
 
 class Shortcut(BasicConfModel):
@@ -83,7 +83,7 @@ gacha = keeping(
         proxy=_config.proxy
     )
 )
-user_cache_file = local_data.get_cache_file("arkgacha", "user.json")
+user_cache_file = local_data.get_data_file("arkgacha", "user.json")
 
 
 def _save_data(data: dict):
