@@ -10,12 +10,13 @@ from arknights_toolkit.update.main import fetch
 from arknights_toolkit.gacha import ArknightsGacha, GachaUser
 
 from arclet.entari import Plugin, Session, Image, plugin_config, command, metadata, keeping
+from arclet.entari.plugin import PluginRole
 from arclet.entari.config import BasicConfModel, model_field
 from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
 
 
-__version__ = "0.5.1"
+__version__ = "0.5.2"
 
 
 class Shortcut(BasicConfModel):
@@ -40,6 +41,7 @@ class Config(BasicConfModel):
 
 metadata(
     "明日方舟抽卡模拟",
+    PluginRole.NORMAL,
     [{"name": "RF-Tar-Railt", "email": "rf_tar_railt@qq.com"}],
     __version__,
     description="明模拟日方舟抽卡功能，支持模拟十连",
@@ -98,7 +100,7 @@ if user_cache_file.exists():
 
 
 @plug.use("::startup")
-async def _():
+async def _init_arkkit():
     if arkkit.need_init():
         await fetch(2, True, proxy=_config.proxy)
         base_path = Path(arkkit.__file__).parent / "resource"
