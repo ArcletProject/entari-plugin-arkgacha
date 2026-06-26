@@ -9,7 +9,7 @@ from arclet.entari.command import Match
 from arknights_toolkit.update.main import fetch
 from arknights_toolkit.gacha import ArknightsGacha, GachaUser
 
-from arclet.entari import Plugin, Session, Image, plugin_config, command, metadata, keeping
+from arclet.entari import MessageChain, Plugin, Session, Image, plugin_config, command, metadata, keeping
 from arclet.entari.plugin import PluginRole
 from arclet.entari.config import BasicConfModel, model_field
 from arclet.entari.logger import log
@@ -111,12 +111,12 @@ async def _init_arkkit():
         await fetch(2, False, proxy=_config.proxy)
 
 
-disp = command.mount(gacha_cmd)
+disp = command.mount(gacha_cmd).as_execute()
 
 
 @disp.assign("帮助")
 async def help_(session: Session):
-    await session.send(
+    return (
         f"可用命令：\n"
         f"{_config.command} [count = 10]\n"
         f"方舟十连\n"
@@ -136,11 +136,11 @@ async def update_pool(session: Session):
             "\n".join(f"{i.name} {'【限定】' if i.limit else '【常驻】'}" for i in new.five_chars)
         )
         if _config.pure_text:
-            await session.send(text)
+            return text
         else:
-            await session.send([Image(new.pool)(text)])
+            return MessageChain(Image(new.pool)(text))
     else:
-        await session.send("卡池已是最新")
+        return "卡池已是最新"
 
 
 @disp.assign("模拟")
@@ -155,9 +155,8 @@ async def simulate(session: Session):
         user = GachaUser(**userdata[user_id])
     res = gacha.gacha(user, 10)
     img = await simulate_image(res[0], proxy=_config.proxy)
-    await session.send([Image.of(raw=img, mime="image/jpeg")("模拟十连")])
     userdata[user_id] = asdict(user)
-    return
+    return MessageChain(Image.of(raw=img, mime="image/jpeg")("模拟十连"))
 
 
 @disp.assign("$main")
@@ -190,10 +189,9 @@ async def _(session: Session, count: Match[int]):
         "\n四星角色：\n" +
         f"共{four_count}个四星"
     )
+    userdata[user_id] = asdict(user)
     if _config.pure_text:
-        await session.send(text)
+        return text
     else:
         img = gacha.create_image(user, data, _count, True)
-        await session.send([Image.of(raw=img, mime="image/jpeg")(text)])
-    userdata[user_id] = asdict(user)
-    return
+        return MessageChain(Image.of(raw=img, mime="image/jpeg")(text))
