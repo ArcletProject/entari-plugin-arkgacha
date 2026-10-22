@@ -16,7 +16,7 @@ from arclet.entari.logger import log
 from arclet.entari.localdata import local_data
 
 
-__version__ = "0.5.3"
+__version__ = "0.6.0"
 
 
 class Shortcut(BasicConfModel):
